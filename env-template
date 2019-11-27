@@ -1,0 +1,6 @@
+# Required vars, go to
+# https://flex-console.sharetribe.com/applications to generate a new
+# application with a client ID and a secret.
+
+FLEX_INTEGRATION_CLIENT_ID=
+FLEX_INTEGRATION_CLIENT_SECRET=
