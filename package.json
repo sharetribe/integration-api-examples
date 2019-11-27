@@ -1,0 +1,14 @@
+{
+  "name": "sharetribe-flex-integration-api-examples",
+  "description": "Examples for the Sharetribe Flex Integration API.",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sharetribe/flex-integration-api-examples"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
