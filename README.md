@@ -78,3 +78,28 @@ Prints information of the marketplace.
 Name: My Test marketplace
 Description: This is the description for my test marketplace.
 ```
+
+## Analytics
+
+Prints information of the users, listings, and transactions of the
+marketplace. Also prints out what new things have been added in the
+current month.
+
+```bash
+> node scripts/analytics.js
+================ My Test marketplace analytics ================
+
+Listings: 20
+ - 1 draft(s)
+ - 1 pending approval
+ - 17 published
+ - 1 closed
+
+Users: 14
+Transactions: 9
+
+This month, starting from Fri Nov 01 2019:
+ - 1 new user(s)
+ - 8 new listing(s)
+ - 9 new transaction(s)
+```
