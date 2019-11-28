@@ -103,3 +103,34 @@ This month, starting from Fri Nov 01 2019:
  - 8 new listing(s)
  - 9 new transaction(s)
 ```
+
+### Welcome email
+
+Prints out an example email for newly joined users. The email welcomes
+the new users and showcases a few recently published listings.
+
+This could be extended into a script that is run periodically and that
+actually sends the email to the listed users.
+
+```bash
+> node scripts/welcome-email.js
+To: team@example.com
+bcc: test2@example.com, test1@example.com
+Subject: Welcome to Bikesoil!
+
+Checkout some of the recently published listings:
+
+Nishiki 401, $123.98:
+https:example.com/l/9009efe1-25ec-4ed5-9413-e80c584ff6bf
+
+Pelago Brooklyn, $123.33:
+https:example.com/l/5e1f2086-522c-46f3-87b4-451c6770c833
+
+Minnesota 2.0 Fat Bike - Lady, $63.12:
+https:example.com/l/927a30a2-3a69-4b0d-9c2e-a41744488703
+
+If you have any questions, feel free to contact us by responding to this email.
+
+Cheers,
+Bikesoil Team
+```
