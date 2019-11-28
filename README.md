@@ -3,6 +3,10 @@
 This repository contains example Node.js scripts using the Sharetribe
 Flex Integration API.
 
+You can use this repo to connect to your own Flex marketplace, and
+print out information of it using the examples. The examples can also
+work as a baseline for your own integration scripts.
+
 ## Getting started
 
 1. Install required tools:
