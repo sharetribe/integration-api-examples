@@ -44,9 +44,9 @@ ms@2.0.0:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
   integrity sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
 
-"sharetribe-flex-integration-sdk@ssh://git@github.com:sharetribe/flex-integration-sdk-js#4ac2a0bbec2d00b792defca28f1efb0079f87a29":
+"sharetribe-flex-integration-sdk@ssh://git@github.com:sharetribe/flex-integration-sdk-js#64f58b52734175023e291b37e1c92f72c4195632":
   version "1.5.0"
-  resolved "ssh://git@github.com:sharetribe/flex-integration-sdk-js#4ac2a0bbec2d00b792defca28f1efb0079f87a29"
+  resolved "ssh://git@github.com:sharetribe/flex-integration-sdk-js#64f58b52734175023e291b37e1c92f72c4195632"
   dependencies:
     axios "^0.19.0"
     lodash "^4.17.10"

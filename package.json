@@ -10,6 +10,6 @@
   },
   "dependencies": {
     "dotenv": "^8.2.0",
-    "sharetribe-flex-integration-sdk": "ssh://git@github.com:sharetribe/flex-integration-sdk-js#4ac2a0bbec2d00b792defca28f1efb0079f87a29"
+    "sharetribe-flex-integration-sdk": "ssh://git@github.com:sharetribe/flex-integration-sdk-js#64f58b52734175023e291b37e1c92f72c4195632"
   }
 }
