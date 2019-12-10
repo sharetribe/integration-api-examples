@@ -83,7 +83,7 @@ Name: My Test marketplace
 Description: This is the description for my test marketplace.
 ```
 
-## Analytics
+### Analytics
 
 Prints information of the users, listings, and transactions of the
 marketplace. Also prints out what new things have been added in the
