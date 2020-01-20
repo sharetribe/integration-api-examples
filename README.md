@@ -138,3 +138,37 @@ If you have any questions, feel free to contact us by responding to this email.
 Cheers,
 Bikesoil Team
 ```
+
+### Update user metadata
+
+Sets a `verified` attribute true in the metadata of a user. The user is defined
+by passing an email address as the first parameter.
+
+```
+> node scripts/update-user-metadata.js john.doe@example.com
+Metadata updated for user john.doe@example.com
+Current metadata: {
+  "verified": true
+}
+```
+
+### Update profile image
+
+Update a user's profile image. A image file is uploaded and attached to a user.
+The uploaded image is defined by passing the file path as the first parameter.
+
+```
+> node scripts/update-profile-image.js /tmp/profile_image.jpg john.doe@example.com
+Profile image updated for user john.doe@example.com
+```
+
+### Approve listings of a user
+
+Approves all listings of a given user that are in the `pendingApproval` state.
+The user is defined by passing an email address as the first parameter.
+
+```
+> node scripts/approve-listings-by-user.js john.doe@example.com                                                                               <<<
+Approved listing: Sauna by a lake (9f3419cc-49aa-4877-ac5b-7b25248414ef)
+Approved listing: Electric city sauna (9009efe1-25ec-4ed5-9413-e80c584ff6bf)
+```
