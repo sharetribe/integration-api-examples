@@ -10,6 +10,6 @@
   },
   "dependencies": {
     "dotenv": "^8.2.0",
-    "sharetribe-flex-integration-sdk": "^1.0.0"
+    "sharetribe-flex-integration-sdk": "^1.1.0"
   }
 }
