@@ -87,10 +87,10 @@ ms@2.0.0:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
   integrity sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
 
-sharetribe-flex-integration-sdk@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/sharetribe-flex-integration-sdk/-/sharetribe-flex-integration-sdk-1.1.0.tgz#483ea23d45fbd8b82586c5d0463412cf2504bd11"
-  integrity sha512-Mmrj+rDNW4PMETeFTOLqLjXJE4q1ibJoRW2pXbQ4X9VFp8lGSWzvCH6oD/c0knEbdQSFsA/0uq/jcpCo22FQJg==
+sharetribe-flex-integration-sdk@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/sharetribe-flex-integration-sdk/-/sharetribe-flex-integration-sdk-1.2.0.tgz#892a51868474160d6483d7db9d9d08d48ee9ddcf"
+  integrity sha512-0aNsxRSgyXEWaTQWeeDh18aj9yliI+P2a525hpaIWghlvR+XrTjqY2coow7K5wGOArvNx4Y0fSzG2rRCUECmKQ==
   dependencies:
     axios "^0.19.0"
     env-paths "^2.2.0"
