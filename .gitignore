@@ -5,6 +5,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Script state
+notify-new-listings.state
+
 # Runtime data
 pids
 *.pid
