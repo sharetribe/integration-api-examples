@@ -172,3 +172,16 @@ The user is defined by passing an email address as the first parameter.
 Approved listing: Sauna by a lake (9f3419cc-49aa-4877-ac5b-7b25248414ef)
 Approved listing: Electric city sauna (9009efe1-25ec-4ed5-9413-e80c584ff6bf)
 ```
+
+### New listing notifications using events
+
+Prints out information about new published listings or listings pending approval
+(if your marketplace is configured with listing approval feature on). Uses
+events to efficiently detect new listings or changes in the listings' state.
+
+```
+> node scripts/notify-new-listings.js
+```
+
+The script runs until interrupted. Create some listings in your marketplace
+while the script is running to see output.
