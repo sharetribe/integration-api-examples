@@ -183,3 +183,17 @@ events to efficiently detect new listings or changes in the listings' state.
 
 The script runs until interrupted. Create some listings in your marketplace
 while the script is running to see output.
+
+### Bulk update listings
+
+Script to bulk update listings' day-based availability plans to time-based
+plans. The bulk update executes API requests sequentially with a proper timeout
+so that the script doesn't trigger API rate-limiting.
+
+To dry run the script, run:
+
+```
+> node scripts/bulk-update-listings.js
+```
+
+If you really want to run the script (please note, this will really update all the listings in your marketplace!), use `--dry-run=false` option.
