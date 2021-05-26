@@ -68,7 +68,6 @@ information:
 ```bash
 > node scripts/show-marketplace.js
 Name: My Test marketplace
-Description: This is the description for my test marketplace.
 ```
 
 ## Scripts reference
@@ -80,7 +79,6 @@ Prints information of the marketplace.
 ```bash
 > node scripts/show-marketplace.js
 Name: My Test marketplace
-Description: This is the description for my test marketplace.
 ```
 
 ### Analytics

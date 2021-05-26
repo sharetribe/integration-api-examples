@@ -20,5 +20,4 @@ const integrationSdk = flexIntegrationSdk.createInstance({
 integrationSdk.marketplace.show().then(res => {
   const marketplace = res.data.data;
   console.log(`Name: ${marketplace.attributes.name}`);
-  console.log(`Description: ${marketplace.attributes.description}`);
 });
