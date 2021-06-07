@@ -19,7 +19,7 @@ const totalItems = response => {
   return response.data.meta.totalItems;
 };
 
-// Let's query minimal data of different resources jsut to see the
+// Let's query minimal data of different resources just to see the
 // response metadata.
 const minimalOptions = {
   'fields.user': 'none',
