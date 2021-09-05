@@ -43,7 +43,7 @@ const queryEvents = (args) => {
 
 const saveLastEventSequenceId = (sequenceId) => {
   try {
-    fs.writeFileSync(stateFile, sequenceId);
+    fs.writeFileSync(stateFile, sequenceId.toString());
   } catch (err) {
     throw err;
   }
