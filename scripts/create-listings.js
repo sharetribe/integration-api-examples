@@ -37,30 +37,39 @@ for (let i = 0; i < max; i++) {
     });
 }
 
-// The listing creation endpoint has a rate limit of
-// 100 queries per minute. Define the wait time as milliseconds.
-const wait = 1000 * 60;
+const timeout = 500;
 
-const requestAndRetry = (sdkCall, ...params) => {
-  sdkCall(...params)
-  .then(resp => {
-    // Process successful creation further, if necessary
-    console.log('\n resp after success: ', resp)
+const createWithTimeouts = (fns, resolve, reject, results = []) => {
+  const [firstFn, ...restFns] = fns;
+  console.log('Remaining items: ',  fns.length)
+  if (firstFn) {
+    firstFn()
+      .then(res => {
+        setTimeout(() => {
+          createWithTimeouts(restFns, resolve, reject, [...results, res]);
+        }, timeout);
+      })
+      .catch(res => {
+        reject([...results, res]);
+      })
+  } else {
+    resolve(results)
+  }
+}
+
+const createListings = new Promise((resolve, reject) => {
+  const fns = listings.map(listing => () => {
+    return integrationSdk.listings.create(listing, { expand: true });
+  });
+
+  createWithTimeouts(fns, resolve, reject);
+})
+
+createListings
+  .then(res => {
+    console.log('Successfully created: ');
+    console.log(res);
   })
   .catch(e => {
-    // 429 Too Many Requests indicates we need to wait before we retry
-    if (e.status === 429) {
-      console.log('waiting!');
-
-      setTimeout(() => {
-        console.log('waiting done after ', wait)
-        requestAndRetry(sdkCall, ...params)
-      }, wait)
-    }
-  })
-}
-
-// Create the listings in Flex
-for (let listing of listings) {
-  requestAndRetry(integrationSdk.listings.create, listing, { expand: true })
-}
+    console.log('Error occurred: ', e)
+  });
