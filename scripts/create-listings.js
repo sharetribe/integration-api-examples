@@ -32,7 +32,7 @@ for (let i = 0; i < max; i++) {
       description: `${description}`,
       authorId: userId,
       state: 'published',
-        price: { amount: 10000, currency: "USD" },
+      price: { amount: 10000, currency: "USD" },
       metadata: {
         extId: count
       }
