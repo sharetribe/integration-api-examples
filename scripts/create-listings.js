@@ -14,6 +14,8 @@ const integrationSdk = flexIntegrationSdk.createInstance({
   baseUrl: process.env.FLEX_INTEGRATION_BASE_URL || 'https://flex-integ-api.sharetribe.com',
 });
 
+const ordered = process.argv[2];
+
 // Create mock listings for demo purposes. Replace this listings array
 // with real listings from e.g. an external integration. Make sure the 
 // user ids refer to existing users within Flex.
@@ -37,8 +39,15 @@ for (let i = 0; i < max; i++) {
     });
 }
 
-const timeout = 500;
+// The listing creation endpoint has a rate limit of
+// 100 queries per minute. Define the wait times in milliseconds.
+const timeout = 600; // Pause between listing creation
+const wait = 1000 * 60; // Wait a full minute in case response indicates Too Many Requests
 
+// Default option:
+// Create listings and maintain their relative order. Listings are created with
+// pauses in between to avoid hitting rate limit, however if the timeout value is reduced,
+// the function waits for a longer time in case of a 429 Too Many Requests error.
 const createWithTimeouts = (fns, resolve, reject, results = []) => {
   const [firstFn, ...restFns] = fns;
   console.log('Remaining items: ',  fns.length)
@@ -50,14 +59,23 @@ const createWithTimeouts = (fns, resolve, reject, results = []) => {
         }, timeout);
       })
       .catch(res => {
-        reject([...results, res]);
+        if (res.status === 429) {
+          console.log('Rate limit exceeded, waiting...')
+          setTimeout(() => {
+            console.log('Resuming listing creation')
+            createWithTimeouts(fns, resolve, reject, results);
+          }, wait)
+        } else {
+          reject([...results, res]);
+        }
       })
   } else {
     resolve(results)
   }
 }
 
-const createListings = new Promise((resolve, reject) => {
+// Map listings as an array of SDK calls for createWithTimeouts function
+const createListingsWithTimeouts = () => new Promise((resolve, reject) => {
   const fns = listings.map(listing => () => {
     return integrationSdk.listings.create(listing, { expand: true });
   });
@@ -65,11 +83,44 @@ const createListings = new Promise((resolve, reject) => {
   createWithTimeouts(fns, resolve, reject);
 })
 
-createListings
-  .then(res => {
-    console.log('Successfully created: ');
-    console.log(res);
+// Non-ordered option (run script with '--ordered=false')
+// Create listings in bulk without maintaining their respective order. 
+// In case the rate limit (100 listings per minute) for the endpoint is hit, wait for a minute and retry.
+const createWithRetry = (listing) => {
+  integrationSdk.listings.create(listing, { expand: true })
+  .then(resp => {
+    // Process successful creation further, if necessary
+    console.log('Successfully created: ', resp)
   })
   .catch(e => {
-    console.log('Error occurred: ', e)
-  });
+    // 429 Too Many Requests indicates we need to wait before we retry
+    if (e.status === 429) {
+      console.log('Waiting due to too many requests...');
+
+      setTimeout(() => {
+        createWithRetry(listing)
+      }, wait)
+    } else {
+      console.log('Error when creating listings: ', e)
+    }
+  })
+}
+
+
+// With no arguments, listings are created with pauses in between and
+// their respective order is maintained. With argument '--ordered=false',
+// listings are created with no ordering.
+if (ordered === '--ordered=false') {
+  for (let listing of listings) {
+    createWithRetry(listing)
+  }
+} else {
+  createListingsWithTimeouts()
+    .then(res => {
+      console.log('Successfully created: ');
+      console.log(res);
+    })
+    .catch(e => {
+      console.log('Error occurred: ', e)
+    });
+}
