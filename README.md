@@ -7,6 +7,12 @@ You can use this repo to connect to your own Flex marketplace, and
 print out information of it using the examples. The examples can also
 work as a baseline for your own integration scripts.
 
+## What is it for?
+
+Integration API is primarily meant for integrations to 3rd party services (e.g. data sync). This means that, unlike Marketplace API, Integration API doesn't have built-in access management for different users.
+
+**If you expose the *client id* & *client secret* of Integration API** to the public web, you are essentially giving the keys to anyone to access all the data on your marketplace and also a possibility to modify it.
+
 ## Getting started
 
 1. Install required tools:
@@ -69,6 +75,22 @@ information:
 > node scripts/show-marketplace.js
 Name: My Test marketplace
 ```
+
+### Warning: usage with your web app / website
+If you use Integration API to read or write data from your web app:
+- Don’t add its _client id_ & _client secret_ to environment variables that start with `REACT_APP_`.<br/>
+  Those variables are included in your react app - if you are using FTW or Create React APP (CRA).
+- Don’t add _id_, _secret_, or _integration SDK_ to files that get compiled into the web app on the build step.<br/>
+  Essentially, this means everything on the `src/` directory.
+
+Instead, create a new `/api/` endpoint to a secure environment (like your server) and call it from the web app. In your new server route, you can:
+- Initialize SDKs for Integration API and Marketplace API
+- Marketplace API can be used to verify that the user who calls your new route is authenticated user<br/>
+  [Marketplace SDK shares the session between browser and server](https://sharetribe.github.io/flex-sdk-js/sharing-session-between-client-and-server.html)
+- After you have verified that the user has the right to call your new server route, you can make the call with Integration SDK.
+- And last but not least: whatever data you get from Integration API, clean it from the stuff that should not be returned to webapp. E.g. Unpublished listings, private data, etc. This depends on the use case. 
+
+As a summary: don’t just create a dummy proxy - ***check** who makes the request*, ***sanitize** request data*, and ***clean** the possible response data*.
 
 ## Scripts reference
 
