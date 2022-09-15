@@ -79,7 +79,7 @@ Name: My Test marketplace
 ### Warning: usage with your web app / website
 If you use Integration API to read or write data from your web app:
 - Don’t add its _client id_ & _client secret_ to environment variables that start with `REACT_APP_`.<br/>
-  Those variables are included in your react app - if you are using FTW or Create React APP (CRA).
+  Those variables are included in your react app - if you are using FTW or Create React App (CRA).
 - Don’t add _id_, _secret_, or _integration SDK_ to files that get compiled into the web app on the build step.<br/>
   Essentially, this means everything on the `src/` directory.
 
