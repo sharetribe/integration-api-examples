@@ -11,7 +11,7 @@ work as a baseline for your own integration scripts.
 
 Integration API is primarily meant for integrations to 3rd party services (e.g. data sync). This means that, unlike Marketplace API, Integration API doesn't have built-in access management for different users.
 
-**If you expose the *client id* & *client secret* of Integration API*** to the public web, you are essentially giving the keys to anyone to access all the data on your marketplace and also a possibility to modify it.
+**If you expose the *client id* & *client secret* of Integration API** to the public web, you are essentially giving the keys to anyone to access all the data on your marketplace and also a possibility to modify it.
 
 ## Getting started
 
