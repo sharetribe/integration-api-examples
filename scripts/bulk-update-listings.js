@@ -1,6 +1,9 @@
 // This dotenv import is required for the `.env` file to be read
 require('dotenv').config();
 
+// TODO: Figure out if this script needs the time out rate limit handling
+// after adding the confs!
+
 const flexIntegrationSdk = require('sharetribe-flex-integration-sdk');
 
 // Read dry run from arguments

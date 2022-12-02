@@ -42,7 +42,11 @@ for (let i = 0; i < max; i++) {
 // The listing creation endpoint has a rate limit of
 // 100 queries per minute. Define the wait times in milliseconds.
 const timeout = 600; // Pause between listing creation
-const wait = 1000 * 60; // Wait a full minute in case response indicates Too Many Requests
+
+// If you decrease the timeout, wait an exponentially longer
+// randomised time in case response indicates Too Many Requests
+const getNewWait = (currentWait) => currentWait * 2 + Math.floor(Math.random() * 100);
+let wait;
 
 // Default option:
 // Create listings and maintain their relative order. Listings are created with
@@ -50,6 +54,7 @@ const wait = 1000 * 60; // Wait a full minute in case response indicates Too Man
 // the function waits for a longer time in case of a 429 Too Many Requests error.
 const createWithTimeouts = (fns, resolve, reject, results = []) => {
   const [firstFn, ...restFns] = fns;
+  wait = timeout;
   console.log('Remaining items: ',  fns.length)
   if (firstFn) {
     firstFn()
@@ -60,7 +65,9 @@ const createWithTimeouts = (fns, resolve, reject, results = []) => {
       })
       .catch(res => {
         if (res.status === 429) {
-          console.log('Rate limit exceeded, waiting...')
+          wait = getNewWait(wait);
+          console.log(`Rate limit exceeded, waiting for ${wait} ms...`)
+
           setTimeout(() => {
             console.log('Resuming listing creation')
             createWithTimeouts(fns, resolve, reject, results);
@@ -87,6 +94,8 @@ const createListingsWithTimeouts = () => new Promise((resolve, reject) => {
 // Create listings in bulk without maintaining their respective order. 
 // In case the rate limit (100 listings per minute) for the endpoint is hit, wait for a minute and retry.
 const createWithRetry = (listing) => {
+  // Retry with a wait time of one minute.
+  wait = 1000 * 60;
   integrationSdk.listings.create(listing, { expand: true })
   .then(resp => {
     // Process successful creation further, if necessary
