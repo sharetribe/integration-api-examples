@@ -1,7 +1,7 @@
 // This dotenv import is required for the `.env` file to be read
 require('dotenv').config();
 
-const flexIntegrationSdk = require('sharetribe-flex-integration-sdk');
+const sharetribeIntegrationSdk = require('sharetribe-flex-integration-sdk');
 
 // Read user email from arguments
 const email = process.argv[2];
@@ -11,7 +11,7 @@ if (!email) {
   process.exit(1);
 }
 
-const integrationSdk = flexIntegrationSdk.createInstance({
+const integrationSdk = sharetribeIntegrationSdk.createInstance({
 
   // These two env vars need to be set in the `.env` file.
   clientId: process.env.FLEX_INTEGRATION_CLIENT_ID,
