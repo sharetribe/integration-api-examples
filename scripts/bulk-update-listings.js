@@ -10,15 +10,15 @@ const dryRun = process.argv[2];
 // NB! If you are using the script in production environment,
 // you will need to use sharetribeIntegrationSdk.util.prodQueryLimiterConfig
 const queryLimiter = sharetribeIntegrationSdk.util.createRateLimiter(
-    sharetribeIntegrationSdk.util.devQueryLimiterConfig
-  );
-  
-  // Create rate limit handler for commands.
-  // NB! If you are using the script in production environment,
-  // you will need to use sharetribeIntegrationSdk.util.prodCommandLimiterConfig
-  const commandLimiter = sharetribeIntegrationSdk.util.createRateLimiter(
-    sharetribeIntegrationSdk.util.devCommandLimiterConfig
-  );
+  sharetribeIntegrationSdk.util.devQueryLimiterConfig
+);
+
+// Create rate limit handler for commands.
+// NB! If you are using the script in production environment,
+// you will need to use sharetribeIntegrationSdk.util.prodCommandLimiterConfig
+const commandLimiter = sharetribeIntegrationSdk.util.createRateLimiter(
+  sharetribeIntegrationSdk.util.devCommandLimiterConfig
+);
 
 const integrationSdk = sharetribeIntegrationSdk.createInstance({
 
