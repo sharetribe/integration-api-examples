@@ -14,6 +14,11 @@ axios@^0.21.1:
   dependencies:
     follow-redirects "^1.14.0"
 
+bottleneck@^2.19.5:
+  version "2.19.5"
+  resolved "https://registry.yarnpkg.com/bottleneck/-/bottleneck-2.19.5.tgz#5df0b90f59fd47656ebe63c78a98419205cadd91"
+  integrity sha512-VHiNCbI1lKdl44tGrhNfU3lup0Tj/ZBMJB5/2ZbNXRCPuRCO7ed2mgcK4r17y+KB2EfuYuRaVlwNbAeaWGSpbw==
+
 combined-stream@^1.0.8:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.8.tgz#c3d45a8b34fd730631a110a8a2520682b31d5a7f"
@@ -26,10 +31,10 @@ delayed-stream@~1.0.0:
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
   integrity sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==
 
-dotenv@^8.2.0:
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
-  integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
+dotenv@^16.0.3:
+  version "16.0.3"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.3.tgz#115aec42bac5053db3c456db30cc243a5a836a07"
+  integrity sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==
 
 env-paths@^2.2.0:
   version "2.2.1"
@@ -67,12 +72,13 @@ mime-types@^2.1.12:
   dependencies:
     mime-db "1.52.0"
 
-sharetribe-flex-integration-sdk@1.8.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/sharetribe-flex-integration-sdk/-/sharetribe-flex-integration-sdk-1.8.0.tgz#f12eb2a1c2609042c1176d1f4b0125c9be43d9d3"
-  integrity sha512-7N42ET7Mjygu25Cvny1I2MtBrw0Ad+WE+CCIHrFx1/mf4JaEjH/YSJiljvqgpNh6dlykfPwcobqrlFtVYVl7nw==
+sharetribe-flex-integration-sdk@1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/sharetribe-flex-integration-sdk/-/sharetribe-flex-integration-sdk-1.9.0.tgz#252acbf4b32cea59dc818ea008c33ec0df4f7f7e"
+  integrity sha512-HvOXfFUBxLquBX88HK3S/+JFp203LOiOWt0aDWSIhHinkpFs3ie0czaxitcy0gd2YsU2VXC5eynixdIGbrAV3A==
   dependencies:
     axios "^0.21.1"
+    bottleneck "^2.19.5"
     env-paths "^2.2.0"
     form-data "^3.0.0"
     lodash "^4.17.10"
