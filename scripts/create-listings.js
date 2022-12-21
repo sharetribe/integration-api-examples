@@ -1,12 +1,31 @@
 // This dotenv import is required for the `.env` file to be read
 require('dotenv').config();
 
-const flexIntegrationSdk = require('sharetribe-flex-integration-sdk');
+const sharetribeIntegrationSdk = require('sharetribe-flex-integration-sdk');
 
-const integrationSdk = flexIntegrationSdk.createInstance({
+// Create rate limit handler for queries.
+// NB! If you are using the script in production environment,
+// you will need to use sharetribeIntegrationSdk.util.prodQueryLimiterConfig
+const queryLimiter = sharetribeIntegrationSdk.util.createRateLimiter(
+  sharetribeIntegrationSdk.util.devQueryLimiterConfig
+);
+
+// Create rate limit handler for commands.
+// NB! If you are using the script in production environment,
+// you will need to use sharetribeIntegrationSdk.util.prodCommandLimiterConfig
+const commandLimiter = sharetribeIntegrationSdk.util.createRateLimiter(
+  sharetribeIntegrationSdk.util.devCommandLimiterConfig
+);
+
+const integrationSdk = sharetribeIntegrationSdk.createInstance({
   // These two env vars need to be set in the `.env` file.
   clientId: process.env.FLEX_INTEGRATION_CLIENT_ID,
   clientSecret: process.env.FLEX_INTEGRATION_CLIENT_SECRET,
+
+  // Pass rate limit handlers
+  queryLimiter: queryLimiter,
+  commandLimiter: commandLimiter,
+  
 
   // Normally you can just skip setting the base URL and just use the
   // default that the `createInstance` uses. We explicitly set it here
@@ -42,7 +61,11 @@ for (let i = 0; i < max; i++) {
 // The listing creation endpoint has a rate limit of
 // 100 queries per minute. Define the wait times in milliseconds.
 const timeout = 600; // Pause between listing creation
-const wait = 1000 * 60; // Wait a full minute in case response indicates Too Many Requests
+
+// If you decrease the timeout, wait an exponentially longer
+// randomised time in case response indicates Too Many Requests
+const getNewWait = (currentWait) => currentWait * 2 + Math.floor(Math.random() * 100);
+let wait;
 
 // Default option:
 // Create listings and maintain their relative order. Listings are created with
@@ -50,6 +73,7 @@ const wait = 1000 * 60; // Wait a full minute in case response indicates Too Man
 // the function waits for a longer time in case of a 429 Too Many Requests error.
 const createWithTimeouts = (fns, resolve, reject, results = []) => {
   const [firstFn, ...restFns] = fns;
+  wait = timeout;
   console.log('Remaining items: ',  fns.length)
   if (firstFn) {
     firstFn()
@@ -60,7 +84,9 @@ const createWithTimeouts = (fns, resolve, reject, results = []) => {
       })
       .catch(res => {
         if (res.status === 429) {
-          console.log('Rate limit exceeded, waiting...')
+          wait = getNewWait(wait);
+          console.log(`Rate limit exceeded, waiting for ${wait} ms...`)
+
           setTimeout(() => {
             console.log('Resuming listing creation')
             createWithTimeouts(fns, resolve, reject, results);
@@ -87,6 +113,8 @@ const createListingsWithTimeouts = () => new Promise((resolve, reject) => {
 // Create listings in bulk without maintaining their respective order. 
 // In case the rate limit (100 listings per minute) for the endpoint is hit, wait for a minute and retry.
 const createWithRetry = (listing) => {
+  // Retry with a wait time of one minute.
+  wait = 1000 * 60;
   integrationSdk.listings.create(listing, { expand: true })
   .then(resp => {
     // Process successful creation further, if necessary

@@ -1,16 +1,34 @@
 // This dotenv import is required for the `.env` file to be read
 require('dotenv').config();
 
-const flexIntegrationSdk = require('sharetribe-flex-integration-sdk');
+const sharetribeIntegrationSdk = require('sharetribe-flex-integration-sdk');
 
 // Read dry run from arguments
 const dryRun = process.argv[2];
 
-const integrationSdk = flexIntegrationSdk.createInstance({
+// Create rate limit handler for queries.
+// NB! If you are using the script in production environment,
+// you will need to use sharetribeIntegrationSdk.util.prodQueryLimiterConfig
+const queryLimiter = sharetribeIntegrationSdk.util.createRateLimiter(
+  sharetribeIntegrationSdk.util.devQueryLimiterConfig
+);
+
+// Create rate limit handler for commands.
+// NB! If you are using the script in production environment,
+// you will need to use sharetribeIntegrationSdk.util.prodCommandLimiterConfig
+const commandLimiter = sharetribeIntegrationSdk.util.createRateLimiter(
+  sharetribeIntegrationSdk.util.devCommandLimiterConfig
+);
+
+const integrationSdk = sharetribeIntegrationSdk.createInstance({
 
   // These two env vars need to be set in the `.env` file.
   clientId: process.env.FLEX_INTEGRATION_CLIENT_ID,
   clientSecret: process.env.FLEX_INTEGRATION_CLIENT_SECRET,
+
+  // Pass rate limit handlers
+  queryLimiter: queryLimiter,
+  commandLimiter: commandLimiter,
 
   // Normally you can just skip setting the base URL and just use the
   // default that the `createInstance` uses. We explicitly set it here
@@ -18,18 +36,13 @@ const integrationSdk = flexIntegrationSdk.createInstance({
   baseUrl: process.env.FLEX_INTEGRATION_BASE_URL || 'https://flex-integ-api.sharetribe.com',
 });
 
-const timeout = 500;
-
-// Takes `fns` array of functions and executes them sequentially with timeout in
-// between. Timeout is needed so that we don't trigger rate limiting.
+// Takes `fns` array of functions and executes them sequentially.
 const bulkUpdate = (fns, resolve, reject, results = []) => {
     const [firstFn, ...restFns] = fns;
     if (firstFn) {
       firstFn()
           .then(res => {
-              setTimeout(() => {
-                  bulkUpdate(restFns, resolve, reject, [...results, res]);
-              }, timeout)
+            bulkUpdate(restFns, resolve, reject, [...results, res]);
           })
           .catch(res => {
               reject([...results, res]);
@@ -49,7 +62,6 @@ const analyze = integrationSdk.listings.query()
               plan.type === 'availability-plan/day';
       });
       console.log('Listings to migrate:', dayBased.length);
-      console.log('Estimated time to run:', ((dayBased.length * (timeout + 50)) / 1000 / 60), 'minutes');
       return dayBased;
   });
 
