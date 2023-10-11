@@ -1,7 +1,7 @@
 // This dotenv import is required for the `.env` file to be read
 require('dotenv').config();
 
-const flexIntegrationSdk = require('sharetribe-flex-integration-sdk');
+const sharetribeIntegrationSdk = require('sharetribe-flex-integration-sdk');
 
 // Read image file path and user email from arguments
 
@@ -17,16 +17,16 @@ if (!email) {
   process.exit(1);
 }
 
-const integrationSdk = flexIntegrationSdk.createInstance({
+const integrationSdk = sharetribeIntegrationSdk.createInstance({
 
   // These two env vars need to be set in the `.env` file.
-  clientId: process.env.FLEX_INTEGRATION_CLIENT_ID,
-  clientSecret: process.env.FLEX_INTEGRATION_CLIENT_SECRET,
+  clientId: process.env.SHARETRIBE_INTEGRATION_CLIENT_ID,
+  clientSecret: process.env.SHARETRIBE_INTEGRATION_CLIENT_SECRET,
 
   // Normally you can just skip setting the base URL and just use the
   // default that the `createInstance` uses. We explicitly set it here
   // for local testing and development.
-  baseUrl: process.env.FLEX_INTEGRATION_BASE_URL || 'https://flex-integ-api.sharetribe.com',
+  baseUrl: process.env.SHARETRIBE_INTEGRATION_BASE_URL || 'https://flex-integ-api.sharetribe.com',
 });
 
 /*
