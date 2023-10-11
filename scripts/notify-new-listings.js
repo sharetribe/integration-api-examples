@@ -24,10 +24,9 @@ const commandLimiter = sharetribeIntegrationSdk.util.createRateLimiter(
 );
 
 const integrationSdk = sharetribeIntegrationSdk.createInstance({
-
   // These two env vars need to be set in the `.env` file.
-  clientId: process.env.FLEX_INTEGRATION_CLIENT_ID,
-  clientSecret: process.env.FLEX_INTEGRATION_CLIENT_SECRET,
+  clientId: process.env.SHARETRIBE_INTEGRATION_CLIENT_ID,
+  clientSecret: process.env.SHARETRIBE_INTEGRATION_CLIENT_SECRET,
 
   // Pass rate limit handlers
   queryLimiter: queryLimiter,
@@ -36,7 +35,7 @@ const integrationSdk = sharetribeIntegrationSdk.createInstance({
   // Normally you can just skip setting the base URL and just use the
   // default that the `createInstance` uses. We explicitly set it here
   // for local testing and development.
-  baseUrl: process.env.FLEX_INTEGRATION_BASE_URL || 'https://flex-integ-api.sharetribe.com',
+  baseUrl: process.env.SHARETRIBE_INTEGRATION_BASE_URL || 'https://flex-integ-api.sharetribe.com',
 });
 
 // Start polling from current time on, when there's no stored state
