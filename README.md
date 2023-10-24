@@ -1,9 +1,8 @@
-# Sharetribe Flex Integration API examples
+# Sharetribe Integration API examples
 
-This repository contains example Node.js scripts using the Sharetribe
-Flex Integration API.
+This repository contains example Node.js scripts using the Sharetribe Integration API.
 
-You can use this repo to connect to your own Flex marketplace, and
+You can use this repo to connect to your own Sharetribe marketplace, and
 print out information of it using the examples. The examples can also
 work as a baseline for your own integration scripts.
 
@@ -23,13 +22,13 @@ Integration API is primarily meant for integrations to 3rd party services (e.g. 
 2. Clone this repository:
 
 ```bash
-git clone git@github.com:sharetribe/flex-integration-api-examples.git
+git clone git@github.com:sharetribe/sharetribe-integration-api-examples.git
 ```
 
 3. Change to the cloned directory:
 
 ```bash
-cd flex-integration-api-examples
+cd sharetribe-integration-api-examples
 ```
 
 4. Install dependencies:
@@ -47,13 +46,13 @@ cp env-template .env
 6. Set the client application details in the `.env` configuration file:
 
 ```bash
-FLEX_INTEGRATION_CLIENT_ID=paste-application-client-id-here
-FLEX_INTEGRATION_CLIENT_SECRET=paste-application-client-secret-here
+SHARETRIBE_INTEGRATION_CLIENT_ID=paste-application-client-id-here
+SHARETRIBE_INTEGRATION_CLIENT_SECRET=paste-application-client-secret-here
 ```
 
 To get a client ID and secret, create a new application in Console:
 
-https://flex-console.sharetribe.com/applications
+https://console.sharetribe.com/applications
 
 Note: you don't need to use the `.env` file, you can also just set the
 environment variables in your shell. Using the env file is just a
