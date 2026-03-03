@@ -28,7 +28,7 @@ git clone git@github.com:sharetribe/integration-api-examples.git
 3. Change to the cloned directory:
 
 ```bash
-cd sharetribe-integration-api-examples
+cd integration-api-examples
 ```
 
 4. Install dependencies:
