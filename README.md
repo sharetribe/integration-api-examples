@@ -22,7 +22,7 @@ Integration API is primarily meant for integrations to 3rd party services (e.g. 
 2. Clone this repository:
 
 ```bash
-git clone git@github.com:sharetribe/sharetribe-integration-api-examples.git
+git clone git@github.com:sharetribe/integration-api-examples.git
 ```
 
 3. Change to the cloned directory:
